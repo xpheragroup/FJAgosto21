@@ -230,7 +230,6 @@ class ProductionOver(models.Model):
     confirm_cancel = fields.Boolean(tracking=1)
 
     tracking_move_raw_ids_blocked = fields.Char(tracking=1)
-    tracking_move_raw_ids_blocked_done = fields.Char(tracking=1)
 
     total_real_cost_blocked = fields.Float(tracking=1)
     total_std_cost_blocked = fields.Float(tracking=1)

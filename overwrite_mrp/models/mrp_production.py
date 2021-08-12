@@ -72,9 +72,6 @@ class Override_Bom_Production(models.Model):
     tracking_move_raw_ids = fields.Char(string='Traza lineas', compute='_get_tracking_move_raw_ids')
     tracking_move_raw_ids_blocked = fields.Char(string='Traza lineas a producir')
 
-    tracking_move_raw_ids_done = fields.Char(string='Traza lineas Consumido', compute='_get_tracking_move_raw_ids_done')
-    tracking_move_raw_ids_blocked_done = fields.Char(string='Traza lineas a Consumir')
-
     @api.depends('move_raw_ids','state')
     def _get_tracking_move_raw_ids(self):
         """ Toma las lineas de la orden de producción. """
@@ -92,24 +89,6 @@ class Override_Bom_Production(models.Model):
                     lines_name += line.product_id.name +','+ str(line.product_uom_qty) +','+ line.product_uom.name + '/'
         self.tracking_move_raw_ids = lines_name
         self.tracking_move_raw_ids_blocked = self.tracking_move_raw_ids
-
-    @api.depends('move_raw_ids','state')
-    def _get_tracking_move_raw_ids_done(self):
-        """ Toma las lineas de la orden de producción consumido. """
-        lines_name = ''
-        for line in self.move_raw_ids:
-            if line.fab_product:
-                if line.product_id.product_template_attribute_value_ids.name:
-                    lines_name += line.fab_product.name +','+ line.product_id.name +','+ line.product_id.product_template_attribute_value_ids.name +','+ str(line.quantity_done) +','+ line.product_uom.name + '/'
-                else:
-                    lines_name += line.fab_product.name +','+ line.product_id.name +','+ str(line.quantity_done) +','+ line.product_uom.name + '/'
-            else:
-                if line.product_id.product_template_attribute_value_ids.name:
-                    lines_name += line.product_id.name +','+ line.product_id.product_template_attribute_value_ids.name +','+ str(line.quantity_done) +','+ line.product_uom.name + '/'
-                else:
-                    lines_name += line.product_id.name +','+ str(line.quantity_done) +','+ line.product_uom.name + '/'
-        self.tracking_move_raw_ids_done = lines_name
-        self.tracking_move_raw_ids_blocked_done = self.tracking_move_raw_ids_done
 
     @api.model
     def _get_default_location_src_id(self):

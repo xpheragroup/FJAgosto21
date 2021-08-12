@@ -30,8 +30,6 @@
                         <field name="total_real_cost_prom_blocked" invisible="False"/>
                         <field name="tracking_move_raw_ids" invisible="True"/>
                         <field name="tracking_move_raw_ids_blocked" invisible="True"/>
-                        <field name="tracking_move_raw_ids_done" invisible="True"/>
-                        <field name="tracking_move_raw_ids_blocked_done" invisible="True"/>
                     </group>
                 </group>
             </field>
