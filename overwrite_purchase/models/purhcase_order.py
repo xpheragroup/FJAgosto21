@@ -24,7 +24,7 @@ class PurchaseOrder(models.Model):
     picking_type_id = fields.Many2one('stock.picking.type', 'Deliver To', domain="['|', ('warehouse_id', '=', False), ('warehouse_id.company_id', '=', company_id)]",
         help="This will determine operation type of incoming shipment")
 
-    @api.onchange('order_line')
+    '''@api.onchange('order_line')
     def get_last_price(self):
         #if self.partner_id.name == 'Proveedor Default':
         if self.state in ('borrador compra'):
@@ -43,7 +43,7 @@ class PurchaseOrder(models.Model):
                                         last_price_id = last_price_id_aux
                             last_final_price = self.env['purchase.order.line'].search([('id','=',last_price_id)])
                             line.price_unit = last_final_price.price_unit
-                            line.product_uom = last_final_price.product_uom
+                            line.product_uom = last_final_price.product_uom'''
     
     @ api.onchange('order_line','picking_type_id')
     def variante_producto(self):
