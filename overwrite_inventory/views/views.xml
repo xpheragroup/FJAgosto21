@@ -303,6 +303,7 @@
                 <field name="return_reason_id"/>
                 <field name="create_lot" widget="selection" attrs="{'invisible': [('state','!=', 'approved')]}"/>
                 <field name="complete_qty" widget="selection" invisible="True"/>
+                <field name="back_order" invisible="True"/>
                 <!--<field name="complete_qty" widget="selection" attrs="{'invisible': [('state','!=', 'approved')]}"/>-->
             </xpath>
             <xpath expr="//field[@name='partner_id']" position="after">
