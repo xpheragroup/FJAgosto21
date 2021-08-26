@@ -4,7 +4,7 @@ from odoo.exceptions import UserError
 from datetime import datetime
 
 EMAIL_REGEX = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})*(\.\w{2,3})+$'
-PHONE_REGEX = '^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$'
+PHONE_REGEX = '^[0-9]{7,13}$'
 
 def regex_validation_message(field, regex, message):
     if field:
@@ -22,16 +22,14 @@ def validation_email(email):
 def validation_phone(phone):
     message = _(
         'El teléfono {} no cumple con el formato. Por favor, escriba los dígitos del ' +
-        'teléfono (entre 7 y 13 dígitos). El sistema automáticamente escribirá el ind' +
-        'icativo del país, +57 en caso de Colombia.')
+        'teléfono (entre 7 y 13 dígitos).')
     return regex_validation_message(phone, PHONE_REGEX, message.format(phone))
 
 
 def validation_mobile(mobile):
     message = _(
         'El teléfono celular {} no cumple con el formato. Por favor, escriba los dígi' +
-        'tos del léfono (entre 7 y 13 dígitos). El sistema automáticamente escribirá ' +
-        'el indicativo del país, +57 en caso de Colombia.')
+        'tos del teléfono (entre 7 y 13 dígitos).')
     return regex_validation_message(mobile, PHONE_REGEX, message.format(mobile))
 
 
@@ -187,7 +185,6 @@ class Partner(models.Model):
         validation_phone(vals.get('phone', False))
         validation_mobile(vals.get('mobile', False))
 
-    @ api.model
     def write(self, vals):
         if vals.get('name', False):
             self.check_name(vals)
@@ -195,4 +192,5 @@ class Partner(models.Model):
         if vals.get('vat', False):
             self.check_vat(vals)
         self.do_validations(vals)
+        
         return super(Partner, self).write(vals)
