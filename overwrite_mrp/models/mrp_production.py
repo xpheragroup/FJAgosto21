@@ -24,8 +24,8 @@ class Override_Bom_Production(models.Model):
     total_real_cost_blocked = fields.Float(string='Costo total real receta', help='Calcula el costo de las cantidades a consumir. Multiplica las cantidades a consumir por el costo del producto en toda la compañía y las suma.')
     total_std_cost_blocked = fields.Float(string='Costo total estándar receta', help='Calcula el costo de las cantidades estandar. Multiplica las cantidades estandar por el costo del producto en toda la compañía y las suma.')
     
-    total_real_cost_prom_blocked = fields.Float(string='Costo total real receta (promedio almacén)', help='Calcula el costo de las cantidades a consumir en el almacén en el que se encuentran los insumos. Multiplica las cantidades a consumir por el costo del producto en el lugar de origen y las suma.')
-    total_std_cost_prom_blocked = fields.Float(string='Costo total estándar receta (promedio almacén)', help='Calcula el costo de las cantidades estandar en el almacén en el que se encuentran los insumos. Multiplica las cantidades estandar por el costo del producto en el lugar de origen y las suma.')
+    total_real_cost_prom_blocked = fields.Float(string='Costo total real receta', help='Calcula el costo de las cantidades entregadas por el costo del producto por almacén y suma el valor de todos los productos.')
+    total_std_cost_prom_blocked = fields.Float(string='Costo total estándar receta', help='Calcula el costo de las cantidades estándar por el costo del producto por almacén y suma el valor de todos los productos.')
 
     add_product_id = fields.Many2many(
         'product.product', string='Productos Adicionales',
