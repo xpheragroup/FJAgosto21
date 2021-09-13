@@ -980,6 +980,9 @@ class StockMoveLine(models.Model):
 
     _inherit = 'stock.move.line'
 
+    date_lot = fields.Date('Fecha de vencimiento del lote')
+    day_alerta_lot = fields.Integer('Alerta días de vencimiento del lote')
+
     exists_qty = fields.Float(
         'Exists Quantity', compute='_compute_exists_qty',
         store=True, help='Cantidad existente en inventario')
@@ -1036,6 +1039,19 @@ class StockMoveLine(models.Model):
                 move.exists_qty = move.qty_done
             else:
                 move.exists_qty = -1 * move.qty_done
+
+    @api.onchange('date_lot','day_alerta_lot')
+    def set_day_date_lot(self):
+        if self.lot_id and self.date_lot:
+            self.lot_id.x_studio_fecha_de_vencimiento_1 = self.date_lot
+        
+        if self.lot_id and self.day_alerta_lot:
+            self.lot_id.x_studio_alerta = self.day_alerta_lot
+
+    @api.onchange('lot_id')
+    def set_initial_day_date_lot(self):
+        self.date_lot = self.lot_id.x_studio_fecha_de_vencimiento_1
+        self.day_alerta_lot = self.lot_id.x_studio_alerta
 
 # Costo promedio en los lugares
 class StockQuant(models.Model):

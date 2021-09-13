@@ -448,4 +448,16 @@
         </field>
     </record>
 
+    <record id="stock_picking_date_day_lot_tree_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.date.day.lot.tree</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="studio_customization.odoo_studio_stock_pi_b37149f7-38aa-4db6-84bf-1fda5e8bd22b"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_line_ids_without_package']/tree//field[@name='lot_id']" position="after">
+                <field name="date_lot" optional="hide"/>
+                <field name="day_alerta_lot" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
